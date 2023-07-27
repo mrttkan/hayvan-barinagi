@@ -1,0 +1,30 @@
+﻿@model IEnumerable<HayvanBarinagi.Models.SahiplendirmeBasvurulari>
+
+<h2>Sahiplendirme Başvuruları</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Hayvan Adı</th>
+            <th>Başvuran Kişi</th>
+            <th>Başvuru Tarihi</th>
+            <th>Durum</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var basvuru in Model)
+        {
+            <tr>
+                <td>@basvuru.Hayvan.Ad</td>
+                <td>@basvuru.BasvuranKisi</td>
+                <td>@basvuru.BasvuruTarihi.ToShortDateString()</td>
+                <td>@basvuru.Durum</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = basvuru.Id })">Düzenle</a> |
+                    <a href="@Url.Action("Delete", new { id = basvuru.Id })">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
