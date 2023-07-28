@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HayvanBarinagi.Models;
+using Microsoft.AspNetCore.Mvc;
 using HayvanBarinagi.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -18,6 +19,12 @@ namespace HayvanBarinagi.Controllers
         {
             ViewBag.Hayvanlar = await _context.Hayvanlar.ToListAsync();
             return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
