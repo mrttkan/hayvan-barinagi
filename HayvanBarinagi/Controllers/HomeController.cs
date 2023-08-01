@@ -17,14 +17,14 @@ namespace HayvanBarinagi.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.Hayvanlar = await _context.Hayvanlar.ToListAsync();
+            ViewBag.Hayvanlar = await _context.Hayvanlar.Where(h => !h.Sahiplendirildi).ToListAsync();
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }

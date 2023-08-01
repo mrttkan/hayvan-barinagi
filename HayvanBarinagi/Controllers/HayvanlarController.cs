@@ -52,6 +52,8 @@ namespace HayvanBarinagi.Controllers
         {
             if (ModelState.IsValid)
             {
+                hayvan.Sahiplendirildi = false;
+
                 _context.Add(hayvan);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -87,6 +89,8 @@ namespace HayvanBarinagi.Controllers
             {
                 try
                 {
+                    hayvan.Sahiplendirildi = false;
+
                     _context.Update(hayvan);
                     await _context.SaveChangesAsync();
                 }
@@ -129,7 +133,7 @@ namespace HayvanBarinagi.Controllers
         {
             if (_context.Hayvanlar == null)
             {
-                return Problem("Entity set 'HayvanBarinagiContext.Hayvans'  is null.");
+                return Problem("Entity set 'HayvanBarinagiContext.Hayvanlar'  is null.");
             }
             var hayvan = await _context.Hayvanlar.FindAsync(id);
             if (hayvan != null)
