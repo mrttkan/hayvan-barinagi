@@ -7,7 +7,7 @@
         public Hayvan Hayvan { get; set; }
         public string BasvuranKisi { get; set; }
         public DateTime BasvuruTarihi { get; set; } = DateTime.Now;
-        public string Durum { get; set; } // "Beklemede", "Onaylandı", "Reddedildi"
+        public string Durum { get; set; } 
     }
 
 }

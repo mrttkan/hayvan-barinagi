@@ -31,6 +31,7 @@ namespace HayvanBarinagi.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
+                TempData["SuccessMessage"] = "Başarıyla kayıt oldunuz!";
                 return RedirectToAction("Index", "Home");
             }
             foreach (var error in result.Errors)
@@ -53,10 +54,11 @@ namespace HayvanBarinagi.Controllers
 
             if (result.Succeeded)
             {
+                TempData["SuccessMessage"] = "Başarıyla giriş yaptınız!";
                 return RedirectToAction("Index", "Home");
             }
 
-            ModelState.AddModelError("", "Invalid login attempt.");
+            ModelState.AddModelError("", "Geçersiz giriş denemesi.");
             return View();
         }
 
@@ -64,6 +66,7 @@ namespace HayvanBarinagi.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            TempData["SuccessMessage"] = "Başarıyla çıkış yaptınız!";
             return RedirectToAction("Index", "Home");
         }
     }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HayvanBarinagi.Migrations
 {
     [DbContext(typeof(HayvanBarinagiContext))]
-    [Migration("20230728114935_IdentityTablolariEkle")]
-    partial class IdentityTablolariEkle
+    [Migration("20230801104733_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

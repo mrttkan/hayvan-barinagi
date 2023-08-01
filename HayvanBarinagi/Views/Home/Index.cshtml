@@ -1,4 +1,11 @@
 ﻿<div class="container mt-5">
     <h1>Hayvan Barınağına Hoş Geldiniz!</h1>
     <p>Burada birçok sevimli hayvanı keşfedebilir ve onlara yeni bir yuva sunabilirsiniz.</p>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mt-3">
+            @TempData["SuccessMessage"]
+        </div>
+    }
 </div>
