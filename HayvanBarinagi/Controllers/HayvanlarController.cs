@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HayvanBarinagi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HayvanBarinagi.Controllers
 {
@@ -21,7 +22,7 @@ namespace HayvanBarinagi.Controllers
         {
               return _context.Hayvanlar != null ? 
                           View(await _context.Hayvanlar.ToListAsync()) :
-                          Problem("Entity set 'HayvanBarinagiContext.Hayvanlar'  is null.");
+                          Problem("'HayvanBarinagiContext.Hayvanlar' değeri boş(null) olamaz .");
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -40,7 +41,7 @@ namespace HayvanBarinagi.Controllers
 
             return View(hayvan);
         }
-
+       
         public IActionResult Create()
         {
             return View();
@@ -48,6 +49,7 @@ namespace HayvanBarinagi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Create([Bind("Id,Tur,Ad,ResimUrl,Aciklama,Sahiplendirildi")] Hayvan hayvan)
         {
             if (ModelState.IsValid)
@@ -61,6 +63,7 @@ namespace HayvanBarinagi.Controllers
             return View(hayvan);
         }
 
+       
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Hayvanlar == null)
@@ -78,6 +81,7 @@ namespace HayvanBarinagi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Edit(int id, [Bind("Id,Tur,Ad,ResimUrl,Aciklama,Sahiplendirildi")] Hayvan hayvan)
         {
             if (id != hayvan.Id)
@@ -129,11 +133,12 @@ namespace HayvanBarinagi.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+  
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Hayvanlar == null)
             {
-                return Problem("Entity set 'HayvanBarinagiContext.Hayvanlar'  is null.");
+                return Problem("HayvanBarinagiContext.Hayvanlar' değeri boş(null) olamaz .");
             }
             var hayvan = await _context.Hayvanlar.FindAsync(id);
             if (hayvan != null)

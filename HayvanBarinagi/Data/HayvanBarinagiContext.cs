@@ -3,7 +3,7 @@
 
     namespace HayvanBarinagi.Models
     {
-        public class HayvanBarinagiContext : IdentityDbContext<ApplicationUser>
+        public class HayvanBarinagiContext : IdentityDbContext<Kullanici>
         {
             public HayvanBarinagiContext(DbContextOptions<HayvanBarinagiContext> options) : base(options)
             {

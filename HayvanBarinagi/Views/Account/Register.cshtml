@@ -2,7 +2,7 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Register</h2>
+<h2>Kayıt</h2>
 
 <div class="alert alert-danger" role="alert">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -10,14 +10,35 @@
 
 <form method="post" class="mt-4">
     <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="email" name="email" class="form-control" required />
+        <label class="form-label">Ad</label>
+        <input type="text" name="Ad" class="form-control" />
     </div>
     <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" required />
+        <label class="form-label">Soyad</label>
+        <input type="text" name="Soyad" class="form-control" />
     </div>
     <div class="mb-3">
-        <input type="submit" value="Register" class="btn btn-primary" />
+        <label class="form-label">E-posta</label>
+        <input type="email" name="Email" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Parola</label>
+        <input type="password" name="Password" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Doğum Tarihi</label>
+        <input type="date" name="DogumTarihi" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Telefon Numarası</label>
+        <input type="tel" name="TelefonNumarasi" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Adres</label>
+        <textarea name="Adres" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <input type="submit" value="Kayıt Ol" class="btn btn-primary" />
     </div>
 </form>

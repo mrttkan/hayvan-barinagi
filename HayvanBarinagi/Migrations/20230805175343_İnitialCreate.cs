@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HayvanBarinagi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class İnitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,6 +30,11 @@ namespace HayvanBarinagi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Ad = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Soyad = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DogumTarihi = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TelefonNumarasi = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Adres = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

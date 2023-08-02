@@ -1,11 +1,13 @@
 ﻿    using HayvanBarinagi.Models;
-    using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using System.Threading.Tasks;
 
     namespace HayvanBarinagi.Controllers
     {
-        public class SahiplendirmeBasvurulariController : Controller
+
+    public class SahiplendirmeBasvurulariController : Controller
         {
             private readonly HayvanBarinagiContext _context;
 
@@ -32,7 +34,6 @@
             {
                 if (ModelState.IsValid)
                 {
-                    // Başvuru tarihi ve durum atanıyor
                     basvuru.BasvuruTarihi = DateTime.Now;
                     basvuru.Durum = "Beklemede";
 

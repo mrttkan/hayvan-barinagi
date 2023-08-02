@@ -1,6 +1,5 @@
 ﻿using HayvanBarinagi.Models;
 using Microsoft.AspNetCore.Mvc;
-using HayvanBarinagi.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 

@@ -7,10 +7,10 @@ namespace HayvanBarinagi.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<Kullanici> _userManager;
+        private readonly SignInManager<Kullanici> _signInManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<Kullanici> userManager, SignInManager<Kullanici> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -23,20 +23,34 @@ namespace HayvanBarinagi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(string email, string password)
+        public async Task<IActionResult> Register(Kullanici model, string Password)
         {
-            var user = new ApplicationUser { UserName = email, Email = email };
-            var result = await _userManager.CreateAsync(user, password);
+            if (ModelState.IsValid)
+            {
+                var user = new Kullanici
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Ad = model.Ad,
+                    Soyad = model.Soyad,
+                    DogumTarihi = model.DogumTarihi,
+                    TelefonNumarasi = model.TelefonNumarasi,
+                    Adres = model.Adres
+                };
+                var result = await _userManager.CreateAsync(user, Password);
 
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                TempData["SuccessMessage"] = "Başarıyla kayıt oldunuz!";
-                return RedirectToAction("Index", "Home");
-            }
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error.Description);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Kullanıcı");
+                    await _signInManager.SignInAsync(user, isPersistent: true);
+                    TempData["SuccessMessage"] = "Başarıyla kayıt oldunuz!";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
             }
             return View("Register");
         }
@@ -44,25 +58,37 @@ namespace HayvanBarinagi.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string password)
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> Login(string Email, string Password)
         {
-            var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(Email, Password, isPersistent: false, lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
-                TempData["SuccessMessage"] = "Başarıyla giriş yaptınız!";
+                HttpContext.Session.SetString("Email", Email);
                 return RedirectToAction("Index", "Home");
             }
-
-            ModelState.AddModelError("", "Geçersiz giriş denemesi.");
-            return View("Login");
+            else if (result.IsLockedOut)
+            {
+                ModelState.AddModelError("", "Hesap kilitlendi. Lütfen daha sonra tekrar deneyin.");
+            }
+            else
+            {
+                ModelState.AddModelError("", "E-posta veya parola yanlış.");
+            }
+            return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -71,3 +97,5 @@ namespace HayvanBarinagi.Controllers
         }
     }
 }
+
+
