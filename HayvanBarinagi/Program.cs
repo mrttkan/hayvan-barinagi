@@ -31,8 +31,7 @@ builder.Services.AddAuthentication(options =>
 // Add authorization policies
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-    options.AddPolicy("RequireUserRole", policy => policy.RequireRole("Kullanıcı"));
+    options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));    options.AddPolicy("RequireUserRole", policy => policy.RequireRole("Kullanıcı"));
 });
 
 // For session support
