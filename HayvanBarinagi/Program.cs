@@ -32,7 +32,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-    options.AddPolicy("RequireUserRole", policy => policy.RequireRole("Kullanıcı"));
+    options.AddPolicy("RequireUserRole", policy => policy.RequireRole("Kullan�c�"));
 });
 
 // For session support
@@ -80,7 +80,7 @@ static async Task CreateRolesAndAdminUser(IServiceProvider serviceProvider)
     var userManager = serviceProvider.GetRequiredService<UserManager<Kullanici>>();
     var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-    string[] roles = { "Admin", "Kullanıcı" };
+    string[] roles = { "Admin", "Kullan�c�" };
     foreach (var roleName in roles)
     {
         if (!(await roleManager.RoleExistsAsync(roleName)))
